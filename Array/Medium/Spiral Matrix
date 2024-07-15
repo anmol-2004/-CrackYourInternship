@@ -1,0 +1,45 @@
+//Leetcode 54
+//https://leetcode.com/problems/spiral-matrix/
+
+
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int>result;
+
+        int row=matrix.size();
+        int col=matrix[0].size();
+
+        int totalele=row*col;
+
+        int startRow=0;
+        int endCol=col-1;
+        int endRow=row-1;
+        int startCol=0;
+
+        int count=0;
+        while(count<totalele){
+            for(int i=startCol;i<=endCol && count<totalele;i++){
+                result.push_back(matrix[startRow][i]);
+                count++;
+            }
+            startRow+=1;
+            for(int i=startRow;i<=endRow && count<totalele;i++){
+                result.push_back(matrix[i][endCol]);
+                count++;
+            }
+            endCol-=1;
+            for(int i=endCol;i>=startCol && count<totalele;i--){
+                result.push_back(matrix[endRow][i]);
+                count++;
+            }
+            endRow-=1;
+            for(int i=endRow;i>=startRow && count<totalele;i--){
+                result.push_back(matrix[i][startCol]);
+                count++;
+            }
+            startCol+=1;
+        }
+        return result;
+    }
+};
