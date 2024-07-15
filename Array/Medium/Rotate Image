@@ -1,7 +1,7 @@
 //Leetcode 48
 //https://leetcode.com/problems/rotate-image/description/
 
-<code>
+
 class Solution {
 public:
     void rotate(vector<vector<int>>& matrix) {
@@ -19,4 +19,3 @@ public:
     }
 
 };
-</code>
