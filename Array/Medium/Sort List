@@ -1,0 +1,69 @@
+//Leetcode 148
+//https://leetcode.com/problems/sort-list/description/
+
+
+class Solution {
+public:
+    ListNode* merge(ListNode* a, ListNode* b) {
+        if(a == NULL) return b;
+
+        if(b == NULL) return a;
+
+        ListNode* temp = NULL;
+
+        if(a->val <= b->val){
+            temp = a;
+            temp->next = merge(a->next, b);
+        }
+        else{
+            temp = b;
+            temp->next = merge(a, b->next);
+        }
+
+        return temp;
+    }
+
+    void split(ListNode* head, ListNode* &x, ListNode* &y){
+
+        if(head == NULL || head->next == NULL) {
+            x = head;
+            y = NULL;
+            return;
+        }
+
+        ListNode* slow = head;
+        ListNode* fast = head->next;
+
+        while(fast != NULL){
+            fast = fast->next;
+
+            if(fast != NULL){
+                slow = slow->next;
+                fast = fast->next;
+            }
+        }
+        x = head;
+        y = slow->next;
+        slow->next = NULL;
+    }
+
+    void mergeSort(ListNode* &head){
+        ListNode* temp = head;
+        if(temp == NULL || temp->next == NULL) {
+            return;
+        }
+        ListNode* a;
+        ListNode* b;
+
+        split(head, a, b);
+
+        mergeSort(a);
+        mergeSort(b);
+
+        head = merge(a, b);
+    }
+    ListNode* sortList(ListNode* head) {
+        mergeSort(head);
+        return head;
+    }
+};
