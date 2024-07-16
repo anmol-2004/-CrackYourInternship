@@ -1,0 +1,51 @@
+//Leetcode 21
+//https://leetcode.com/problems/merge-two-sorted-lists/description/
+
+
+class Solution {
+public:
+    void insertAtTail(ListNode *&head, int data)
+    {
+    ListNode* Node = new ListNode(data);
+    if(!head){
+        head = Node;
+    }
+    else{
+        ListNode* temp = head;
+
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = Node;
+    }
+    }
+
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode* head = NULL;
+
+        ListNode* temp1 = list1;
+        ListNode* temp2 = list2;
+        while (temp1 != NULL && temp2 != NULL) {
+            if (temp1->val <= temp2->val) {
+                insertAtTail(head, temp1->val);
+                temp1 = temp1->next;
+            }
+            else{
+                insertAtTail(head, temp2->val);
+                temp2 = temp2->next;
+            }
+        }
+
+         while (temp1 != NULL) {
+            insertAtTail(head, temp1->val);
+            temp1 = temp1->next;
+        }
+
+         while (temp2 != NULL) {
+            insertAtTail(head, temp2->val);
+            temp2 = temp2->next;
+        }
+
+        return head;
+    }
+};
